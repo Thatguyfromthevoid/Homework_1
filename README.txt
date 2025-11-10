@@ -1,0 +1,2 @@
+In questa cartella potete mettere tutte i file che volete per lavorare all'homework. Ogni volta che modificate un file o aggiungete/togliete qualcosa, pushate i cambiamenti sul sito o su GitHub desktop (vi spiego io tanto).
+GG squad de king.
