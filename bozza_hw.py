@@ -123,6 +123,7 @@ print("varx =",var_x1N, "\nvary =", var_y1N, "\nenergiax1 =", x1N_energia, "\nen
 print("lobox =", lobo_autocorr_x1N , "loboy =", lobo_autocorr_y1N )
 
 # ------ es 2.d — Commento e interpretazione
+#questo lo ha fatto chatGPT quindi è solo per avere una base.
 
 print("=== Esercizio 2d ===")
 print("Analisi dell'effetto del filtro sinc sul segnale x1")
