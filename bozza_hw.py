@@ -122,12 +122,36 @@ lobo_autocorr_y1N = larghezza_lobo_centrale(autocorr_y1N)
 print("varx =",var_x1N, "\nvary =", var_y1N, "\nenergiax1 =", x1N_energia, "\nenergiay1 =", y1N_energia )
 print("lobox =", lobo_autocorr_x1N , "loboy =", lobo_autocorr_y1N )
 
+# ------ es 2.d — Commento e interpretazione
+
+print("=== Esercizio 2d ===")
+print("Analisi dell'effetto del filtro sinc sul segnale x1")
+
+print("\n1) Varianza ed energia:")
+print("- La varianza di y1N è maggiore rispetto a x1N, segno che il filtro sinc non è normalizzato,")
+print("  e quindi amplifica leggermente le ampiezze.")
+print(f"  Var(x1N) = {var_x1N:.4f}, Var(y1N) = {var_y1N:.4f}")
+print(f"  Energia(x1N) = {energia_x1N:.2f}, Energia(y1N) = {energia_y1N:.2f}")
+
+print("\n2) Larghezza del lobo centrale dell'autocorrelazione:")
+print(f"  Larghezza r_xx = {lobo_x} campioni,  Larghezza r_yy = {lobo_y} campioni")
+print("- Il lobo centrale di r_yy risulta più largo rispetto a r_xx,")
+print("  come previsto per un segnale filtrato passa-basso: il filtro rimuove le alte frequenze,")
+print("  rendendo il segnale più 'lento' e quindi più correlato nel tempo.")
+
+print("\n3) Considerazioni generali:")
+print("- Il filtro sinc agisce come un passa-basso ideale, smussando le variazioni rapide del segnale.")
+print("- Dopo la rimozione del valor medio, si osserva che la correlazione a lungo termine diminuisce,")
+print("  mentre la correlazione locale (attorno allo zero) si allarga.")
+print("- In sintesi: il filtro riduce il contenuto ad alta frequenza, aumenta la regolarità del segnale")
+print("  e modifica l’energia e la varianza per effetto della sua non normalizzazione.")
+
 # ------ es 3.a
 
 x2N = x2 - np.mean(x2)
 delta_x = np.abs(x1N - x2N)
 
-plt.figure(figsize=(10,7))
+plt.figure(figsize=(10,6))
 plt.subplot(3,1,1)
 plt.plot(x1N, color='gray')
 plt.title("x1N (senza valor medio)")
