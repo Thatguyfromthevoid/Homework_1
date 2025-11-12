@@ -132,10 +132,10 @@ print("\n1) Varianza ed energia:")
 print("- La varianza di y1N è maggiore rispetto a x1N, segno che il filtro sinc non è normalizzato,")
 print("  e quindi amplifica leggermente le ampiezze.")
 print(f"  Var(x1N) = {var_x1N:.4f}, Var(y1N) = {var_y1N:.4f}")
-print(f"  Energia(x1N) = {energia_x1N:.2f}, Energia(y1N) = {energia_y1N:.2f}")
+print(f"  Energia(x1N) = {x1N_energia:.2f}, Energia(y1N) = {y1N_energia:.2f}")
 
 print("\n2) Larghezza del lobo centrale dell'autocorrelazione:")
-print(f"  Larghezza r_xx = {lobo_x} campioni,  Larghezza r_yy = {lobo_y} campioni")
+print(f"  Larghezza r_xx = {lobo_autocorr_x1N} campioni,  Larghezza r_yy = {lobo_autocorr_y1N} campioni")
 print("- Il lobo centrale di r_yy risulta più largo rispetto a r_xx,")
 print("  come previsto per un segnale filtrato passa-basso: il filtro rimuove le alte frequenze,")
 print("  rendendo il segnale più 'lento' e quindi più correlato nel tempo.")
@@ -167,3 +167,38 @@ plt.title("Δx[n] = |x1N - x2N|")
 plt.xlabel("Campione n")
 plt.tight_layout()
 plt.show()
+
+
+# ------ es 3.b
+
+def calc_corrcoeff(x,y):
+    # IMPORTANTE: questa funzione usa la definizione della slide 15 (05_convfiltricorr.pdf) 
+    # https://drive.google.com/drive/folders/1FscODSNyj1uR-GuXtY3VHb2KcW-G3BBE
+    #
+    # Il risultato deve essere compreso tra -1 e +1
+    #  0 = segnali incorrelati
+    # −1 = segnali anticorrelati
+    #  1 = segnali correlati
+
+    E_xy = sum(xi * yi for xi, yi in zip(x, y))
+    E_x = np.sum(x**2)
+    E_y = np.sum(y**2)
+
+    return E_xy / (E_x * E_y)**0.5
+
+
+l_finestra_x1 = N1 // 3
+l_finestra_x2 = N2 // 3
+
+x1N_K1 = x1N[:l_finestra_x1]
+x2N_K1 = x2N[:l_finestra_x2]
+
+x1N_K2 = x1N[l_finestra_x1:2*l_finestra_x1]
+x2N_K2 = x2N[l_finestra_x2:2*l_finestra_x2]
+
+x1N_K3 = x1N[2*l_finestra_x1:]
+x2N_K3 = x2N[2*l_finestra_x2:]
+
+print(f"Coefficiente di correlazione finestra K = 1 --> {calc_corrcoeff(x1N_K1, x2N_K1)}")
+print(f"Coefficiente di correlazione finestra K = 2 --> {calc_corrcoeff(x1N_K2, x2N_K2)}")
+print(f"Coefficiente di correlazione finestra K = 3 --> {calc_corrcoeff(x1N_K3, x2N_K3)}")
