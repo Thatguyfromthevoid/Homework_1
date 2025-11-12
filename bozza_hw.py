@@ -1,5 +1,3 @@
-# IMPORTANTE: Questo file contiene lo svolgimento fino al punto 2.a
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -63,3 +61,33 @@ plt.tight_layout()
 plt.show()
 
 
+# ------ es 2.b
+
+uscita_filtro_valor_medio = np.mean(uscita_filtro)
+
+x1N = x1 - x1_valor_medio
+y1N = uscita_filtro - uscita_filtro_valor_medio
+
+# Sulla traccia c'è scritto di usare correlate() di numpy
+# https://stackoverflow.com/questions/643699/how-can-i-use-numpy-correlate-to-do-autocorrelation
+def autocorr(x):
+    result = np.correlate(x, x, mode='full')
+    return result[result.size//2:]
+
+autocorr_x1N = autocorr(x1N)
+autocorr_y1N = autocorr(y1N)
+
+plt.figure(figsize=(10,6))
+
+plt.subplot(2, 1, 1)
+plt.plot(n1, autocorr_x1N, color='gray')
+plt.title("Autocorrelazione x1N")
+plt.grid(True, alpha=0.3)
+
+plt.subplot(2, 1, 2)
+plt.plot(n1, autocorr_y1N, color='purple')
+plt.title("Autocorrelazione y1N")
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
