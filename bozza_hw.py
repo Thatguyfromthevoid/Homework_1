@@ -120,8 +120,8 @@ lobo_x = larghezza_lobo_centrale(auto_x1)
 lobo_y = larghezza_lobo_centrale(auto_y1)
 
 print("Esercizio 2.c")
-print(f"Var(x1N) =" var_x1N, "\nVar(y1N) =" var_y1N)
-print(f"Energia(x1N) ="energia_x1N, "\nEnergia(y1N) =" energia_y1N)
-print(f"Larghezza lobo centrale r_xx: {lobo_x} campioni")
-print(f"Larghezza lobo centrale r_yy: {lobo_y} campioni")
+print(f"Var(x1N) =", var_x1N, "\nVar(y1N) =", var_y1N)
+print(f"Energia(x1N) =", energia_x1N, "\nEnergia(y1N) =", energia_y1N)
+print(f"Larghezza lobo centrale r_xx:", lobo_x)
+print(f"Larghezza lobo centrale r_yy:", lobo_y)
 
