@@ -121,3 +121,24 @@ lobo_autocorr_y1N = larghezza_lobo_centrale(autocorr_y1N)
 
 print("varx =",var_x1N, "\nvary =", var_y1N, "\nenergiax1 =", x1N_energia, "\nenergiay1 =", y1N_energia )
 print("lobox =", lobo_autocorr_x1N , "loboy =", lobo_autocorr_y1N )
+
+# ------ es 3.a
+
+x2N = x2 - np.mean(x2)
+delta_x = np.abs(x1N - x2N)
+
+plt.figure(figsize=(10,7))
+plt.subplot(3,1,1)
+plt.plot(x1N, color='gray')
+plt.title("x1N (senza valor medio)")
+
+plt.subplot(3,1,2)
+plt.plot(x2N, color='blue')
+plt.title("x2N (senza valor medio)")
+
+plt.subplot(3,1,3)
+plt.plot(delta_x, color='red')
+plt.title("Δx[n] = |x1N - x2N|")
+plt.xlabel("Campione n")
+plt.tight_layout()
+plt.show()
