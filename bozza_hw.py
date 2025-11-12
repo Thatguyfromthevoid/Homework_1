@@ -94,30 +94,30 @@ plt.show()
 
 # ------ es 2.c
 
-x1N = x1 - np.mean(x1)
-y1N = uscita_filtro - np.mean(uscita_filtro)
-
-rxx = np.correlate(x1N, x1N, mode='full')
-ryy = np.correlate(y1N, y1N, mode='full')
-
 var_x1N = np.var(x1N)
 var_y1N = np.var(y1N)
-energia_x1N = np.sum(x1N**2)
-energia_y1N = np.sum(y1N**2)
+
+x1N_energia = np.sum(x1N**2)
+y1N_energia = np.sum(y1N**2)
 
 def larghezza_lobo_centrale(r):
     N = len(r)
-    centro = N // 2
-    r_norm = r / abs(r[centro]) if r[centro] != 0 else r
-    destra = next((i for i in range(centro + 1, N) if r_norm[i] <= 0), N - 1)
-    sinistra = next((i for i in range(centro - 1, -1, -1) if r_norm[i] <= 0), 0)
-    return destra - sinistra
+    centro = N//2
+    r_norm = r / np.max(np.abs(r))
+    destra = np.where(r_norm[centro:] <= 0)[0]
+    sinistra = np.where(r_norm[:centro] <= 0)[0]
+    if len(destra) == 0:
+        dx = N - centro
+    else:
+        dx = destra[0]
+    if len(sinistra) == 0:
+        sx = centro
+    else:
+        sx = centro - sinistra[-1]
+    return dx + sx
 
-lobo_x = larghezza_lobo_centrale(rxx)
-lobo_y = larghezza_lobo_centrale(ryy)
+lobo_autocorr_x1N = larghezza_lobo_centrale(autocorr_x1N)
+lobo_autocorr_y1N = larghezza_lobo_centrale(autocorr_y1N)
 
-print("=== Esercizio 2c ===")
-print(f"Var(x1N) = {var_x1N:.4f}, Var(y1N) = {var_y1N:.4f}")
-print(f"Energia(x1N) = {energia_x1N:.2f}, Energia(y1N) = {energia_y1N:.2f}")
-print(f"Larghezza lobo centrale r_xx: {lobo_x} campioni")
-print(f"Larghezza lobo centrale r_yy: {lobo_y} campioni")
+print("varx =",var_x1N, "\nvary =", var_y1N, "\nenergiax1 =", x1N_energia, "\nenergiay1 =", y1N_energia )
+print("lobox =", lobo_autocorr_x1N , "loboy =", lobo_autocorr_y1N )
