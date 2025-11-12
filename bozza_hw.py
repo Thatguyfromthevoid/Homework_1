@@ -119,70 +119,9 @@ def larghezza_lobo_centrale(r):
 lobo_x = larghezza_lobo_centrale(auto_x1)
 lobo_y = larghezza_lobo_centrale(auto_y1)
 
-print("=== Esercizio 2c ===")
-print(f"Var(x1N) = {var_x1N:.4f}, Var(y1N) = {var_y1N:.4f}")
-print(f"Energia(x1N) = {energia_x1N:.2f}, Energia(y1N) = {energia_y1N:.2f}")
+print("Esercizio 2.c")
+print(f"Var(x1N) =" var_x1N, "\nVar(y1N) =" var_y1N)
+print(f"Energia(x1N) ="energia_x1N, "\nEnergia(y1N) =" energia_y1N)
 print(f"Larghezza lobo centrale r_xx: {lobo_x} campioni")
 print(f"Larghezza lobo centrale r_yy: {lobo_y} campioni")
 
-# ------ es 3.a
-
-x2N = x2 - np.mean(x2)
-L = min(len(x1N), len(x2N))
-x1N = x1N[:L]
-x2N = x2N[:L]
-delta_x = np.abs(x1N - x2N)
-
-plt.figure(figsize=(10,7))
-plt.subplot(3,1,1)
-plt.plot(x1N, color='gray')
-plt.title("x1N (senza valor medio)")
-
-plt.subplot(3,1,2)
-plt.plot(x2N, color='blue')
-plt.title("x2N (senza valor medio)")
-
-plt.subplot(3,1,3)
-plt.plot(delta_x, color='red')
-plt.title("Δx[n] = |x1N - x2N|")
-plt.xlabel("Campione n")
-plt.tight_layout()
-plt.show()
-
-# ------ es 3.b
-
-K = 3
-N = len(x1N)
-base = N // K
-resto = N % K
-idx = []
-start = 0
-for i in range(K):
-    fine = start + base + (1 if i < resto else 0)
-    idx.append((start, fine))
-    start = fine
-
-rho = []
-lag_picco = []
-
-for (a, b) in idx:
-    seg1 = x1N[a:b]
-    seg2 = x2N[a:b]
-    if np.std(seg1) == 0 or np.std(seg2) == 0:
-        rho_val = np.nan
-    else:
-        rho_val = np.corrcoef(seg1, seg2)[0, 1]
-    rho.append(rho_val)
-    rxy = np.correlate(seg1, seg2, mode='full')
-    lag = np.arange(-len(seg1)+1, len(seg1))
-    lag_max = lag[np.argmax(rxy)]
-    lag_picco.append(lag_max)
-
-print("\n=== Esercizio 3b ===")
-for i in range(K):
-    print(f"Finestra {i+1}: rho = {rho[i]:.4f}, lag al picco = {lag_picco[i]} campioni")
-
-if len(set(lag_picco)) == 1:
-    print("→ Il ritardo è costante tra le finestre.")
-else:
-    print("→ Il ritardo varia nel tempo.")
