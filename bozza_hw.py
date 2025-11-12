@@ -92,36 +92,3 @@ plt.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 
-# ------ es 2.c
-# varianze ed energie
-var_x1N = np.var(x1N)
-var_y1N = np.var(y1N)
-energia_x1N = np.sum(x1N**2)
-energia_y1N = np.sum(y1N**2)
-
-# funzione per stimare larghezza del lobo centrale
-def larghezza_lobo_centrale(r):
-    N = len(r)
-    centro = N//2
-    r_norm = r / np.max(np.abs(r))
-    destra = np.where(r_norm[centro:] <= 0)[0]
-    sinistra = np.where(r_norm[:centro] <= 0)[0]
-    if len(destra) == 0:
-        dx = N - centro
-    else:
-        dx = destra[0]
-    if len(sinistra) == 0:
-        sx = centro
-    else:
-        sx = centro - sinistra[-1]
-    return dx + sx
-
-lobo_x = larghezza_lobo_centrale(auto_x1)
-lobo_y = larghezza_lobo_centrale(auto_y1)
-
-print("Esercizio 2.c")
-print(f"Var(x1N) =", var_x1N, "\nVar(y1N) =", var_y1N)
-print(f"Energia(x1N) =", energia_x1N, "\nEnergia(y1N) =", energia_y1N)
-print(f"Larghezza lobo centrale r_xx:", lobo_x)
-print(f"Larghezza lobo centrale r_yy:", lobo_y)
-
