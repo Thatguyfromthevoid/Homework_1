@@ -92,3 +92,32 @@ plt.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 
+# ------ es 2.c
+
+x1N = x1 - np.mean(x1)
+y1N = uscita_filtro - np.mean(uscita_filtro)
+
+rxx = np.correlate(x1N, x1N, mode='full')
+ryy = np.correlate(y1N, y1N, mode='full')
+
+var_x1N = np.var(x1N)
+var_y1N = np.var(y1N)
+energia_x1N = np.sum(x1N**2)
+energia_y1N = np.sum(y1N**2)
+
+def larghezza_lobo_centrale(r):
+    N = len(r)
+    centro = N // 2
+    r_norm = r / abs(r[centro]) if r[centro] != 0 else r
+    destra = next((i for i in range(centro + 1, N) if r_norm[i] <= 0), N - 1)
+    sinistra = next((i for i in range(centro - 1, -1, -1) if r_norm[i] <= 0), 0)
+    return destra - sinistra
+
+lobo_x = larghezza_lobo_centrale(rxx)
+lobo_y = larghezza_lobo_centrale(ryy)
+
+print("=== Esercizio 2c ===")
+print(f"Var(x1N) = {var_x1N:.4f}, Var(y1N) = {var_y1N:.4f}")
+print(f"Energia(x1N) = {energia_x1N:.2f}, Energia(y1N) = {energia_y1N:.2f}")
+print(f"Larghezza lobo centrale r_xx: {lobo_x} campioni")
+print(f"Larghezza lobo centrale r_yy: {lobo_y} campioni")
