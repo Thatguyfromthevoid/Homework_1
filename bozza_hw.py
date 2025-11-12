@@ -93,11 +93,6 @@ plt.tight_layout()
 plt.show()
 
 # ------ es 2.c
-
-# segnali senza valor medio
-x1N = x1 - np.mean(x1)
-y1N = uscita_filtro - np.mean(uscita_filtro)
-
 # varianze ed energie
 var_x1N = np.var(x1N)
 var_y1N = np.var(y1N)
