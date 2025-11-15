@@ -15,7 +15,7 @@ x1 = df1["pressure_value"].values
 x2 = df2["pressure_value"].values
 
 N1 = len(x1)
-n1 = np.linspace(0, N1, N1)
+n1 = np.arange(N1)
 N2 = len(x2)
 n2 = np.linspace(0, N2, N2)
 
@@ -71,21 +71,24 @@ y1N = uscita_filtro - uscita_filtro_valor_medio
 # Sulla traccia c'è scritto di usare correlate() di numpy
 # https://stackoverflow.com/questions/643699/how-can-i-use-numpy-correlate-to-do-autocorrelation
 def autocorr(x):
-    result = np.correlate(x, x, mode='full')
-    return result[result.size//2:]
+    #result = np.correlate(x, x, mode='full')
+    return np.correlate(x, x, mode='full')
+    #return result[result.size//2:]
 
 autocorr_x1N = autocorr(x1N)
 autocorr_y1N = autocorr(y1N)
 
 plt.figure(figsize=(10,6))
 
+lag = np.arange(-len(x1N)+1, len(x1N))
+
 plt.subplot(2, 1, 1)
-plt.plot(n1, autocorr_x1N, color='gray')
+plt.plot(lag, autocorr_x1N, color='gray')
 plt.title("Autocorrelazione x1N")
 plt.grid(True, alpha=0.3)
 
 plt.subplot(2, 1, 2)
-plt.plot(n1, autocorr_y1N, color='purple')
+plt.plot(lag, autocorr_y1N, color='purple')
 plt.title("Autocorrelazione y1N")
 plt.grid(True, alpha=0.3)
 
