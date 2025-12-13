@@ -1,0 +1,8 @@
+ip addr add 10.42.134.161/30 dev eth0
+ip addr add 10.42.134.154/30 dev eth1
+ip addr add 10.42.132.1/23 dev eth2
+ip addr add 10.42.134.150/30 dev eth3
+
+ip route add default via 10.42.134.153 dev eth1
+
+cat /shared/etc_hosts >> /etc/hosts
