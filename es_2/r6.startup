@@ -3,11 +3,11 @@ ip addr add 10.42.0.1/19 dev eth1
 ip addr add 10.42.134.157/30 dev eth2
 ip addr add 10.42.134.146/30 dev eth3
 
+ip route add 10.42.134.160/27 via 10.42.134.158 dev eth2
 ip route add 10.42.112.0/21 via 10.42.134.158 dev eth2
 ip route add 10.42.96.0/20 via 10.42.134.158 dev eth2
 ip route add 10.42.64.0/19 via 10.42.134.158 dev eth2
 ip route add 10.42.128.0/22 via 10.42.134.158 dev eth2
-ip route add 10.42.134.156/27 via 10.42.134.158 dev eth2
 
 ip route add default via 10.42.134.145 dev eth3
 
