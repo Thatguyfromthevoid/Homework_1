@@ -1,0 +1,17 @@
+ip addr add 10.42.134.161/30 dev eth0   # R7-R9
+ip addr add 10.42.134.154/30 dev eth1   # R6-R7
+ip addr add 10.42.132.1/23   dev eth2   # Marche
+ip addr add 10.42.134.150/30 dev eth3   # R5-R7
+
+sysctl -w net.ipv4.ip_forward=1
+
+# Default = anello NORD orario: R7 → R6
+ip route replace default via 10.42.134.153 dev eth1
+
+# Rotte mirate per il SUD antiorario: R7 → R9
+ip route replace 10.42.64.0/19  via 10.42.134.162 dev eth0   # Calabria
+ip route replace 10.42.96.0/20  via 10.42.134.162 dev eth0   # Sicilia
+ip route replace 10.42.112.0/21 via 10.42.134.162 dev eth0   # Sardegna
+ip route replace 10.42.128.0/22 via 10.42.134.162 dev eth0   # Puglia
+
+cat /shared/etc_hosts >> /etc/hosts
