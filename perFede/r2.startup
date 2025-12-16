@@ -1,0 +1,10 @@
+ip addr add 10.42.134.130/30 dev eth0   # R1-R2
+ip addr add 10.42.134.137/30 dev eth1   # R2-R4
+ip addr add 10.42.32.1/19    dev eth2   # Liguria
+
+sysctl -w net.ipv4.ip_forward=1
+
+# Anello NORD orario: da R2 si va verso R1
+ip route replace default via 10.42.134.129 dev eth0
+
+cat /shared/etc_hosts >> /etc/hosts
