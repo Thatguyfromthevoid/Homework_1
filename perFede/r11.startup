@@ -1,0 +1,10 @@
+ip addr add 10.42.134.158/30 dev eth0   # R6-R11
+ip addr add 10.42.134.174/30 dev eth1   # R10-R11
+ip addr add 10.42.112.1/21   dev eth2   # Sardegna
+
+sysctl -w net.ipv4.ip_forward=1
+
+# SUD antiorario: R11 → R6
+ip route replace default via 10.42.134.157 dev eth0
+
+cat /shared/etc_hosts >> /etc/hosts
