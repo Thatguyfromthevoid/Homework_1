@@ -1,0 +1,10 @@
+ip addr add 10.42.134.170/30 dev eth0   # R8-R10
+ip addr add 10.42.96.1/20    dev eth1   # Sicilia
+ip addr add 10.42.134.173/30 dev eth2   # R10-R11
+
+sysctl -w net.ipv4.ip_forward=1
+
+# SUD antiorario: R10 → R11
+ip route replace default via 10.42.134.174 dev eth2
+
+cat /shared/etc_hosts >> /etc/hosts
