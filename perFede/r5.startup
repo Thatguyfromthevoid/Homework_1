@@ -1,0 +1,9 @@
+ip addr add 10.42.134.149/30 dev eth0   # R5-R7
+ip addr add 10.42.134.142/30 dev eth1   # R3-R5
+
+sysctl -w net.ipv4.ip_forward=1
+
+# Anello NORD orario: da R5 si va verso R7
+ip route replace default via 10.42.134.150 dev eth0
+
+cat /shared/etc_hosts >> /etc/hosts
