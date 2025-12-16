@@ -1,0 +1,10 @@
+ip addr add 10.42.120.1/21   dev eth0   # Toscana
+ip addr add 10.42.134.145/30 dev eth1   # R4-R6
+ip addr add 10.42.134.138/30 dev eth2   # R2-R4
+
+sysctl -w net.ipv4.ip_forward=1
+
+# Anello NORD orario: da R4 si va verso R2
+ip route replace default via 10.42.134.137 dev eth2
+
+cat /shared/etc_hosts >> /etc/hosts
