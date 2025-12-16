@@ -1,0 +1,19 @@
+# IP P2P
+ip addr add 10.42.134.133/30 dev eth0   # R1-R3
+ip addr add 10.42.134.129/30 dev eth1   # R1-R2
+
+# Abilita forwarding
+sysctl -w net.ipv4.ip_forward=1
+
+# Internet su interfaccia bridged (Katharà): prendi IP/gw via DHCP
+dhclient -v eth2 || true
+
+# Forza l’anello NORD in senso orario: tutto l’interno 10.42.0.0/16 “parte” verso R3
+ip route replace 10.42.0.0/16 via 10.42.134.134 dev eth0
+
+# NAT verso Internet
+iptables -t nat -F
+iptables -F
+iptables -t nat -A POSTROUTING -s 10.42.0.0/16 -o eth2 -j MASQUERADE
+
+cat /shared/etc_hosts >> /etc/hosts
