@@ -1,0 +1,10 @@
+ip addr add 10.42.134.1/25   dev eth0   # Veneto
+ip addr add 10.42.134.141/30 dev eth1   # R3-R5
+ip addr add 10.42.134.134/30 dev eth2   # R1-R3
+
+sysctl -w net.ipv4.ip_forward=1
+
+# Anello NORD orario: da R3 si va verso R5
+ip route replace default via 10.42.134.142 dev eth1
+
+cat /shared/etc_hosts >> /etc/hosts
