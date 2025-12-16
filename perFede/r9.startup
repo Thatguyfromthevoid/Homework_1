@@ -1,0 +1,10 @@
+ip addr add 10.42.128.1/22   dev eth0   # Puglia
+ip addr add 10.42.134.166/30 dev eth1   # R8-R9
+ip addr add 10.42.134.162/30 dev eth2   # R7-R9
+
+sysctl -w net.ipv4.ip_forward=1
+
+# SUD antiorario: R9 → R8
+ip route replace default via 10.42.134.165 dev eth1
+
+cat /shared/etc_hosts >> /etc/hosts
