@@ -3,5 +3,6 @@ ip addr add 10.42.134.166/30 dev eth1
 ip addr add 10.42.134.162/30 dev eth2
 
 ip route add default via 10.42.134.161 dev eth2
+ip route add 10.42.134.165 via 10.42.134.161 dev eth2
 
 cat /shared/etc_hosts >> /etc/hosts

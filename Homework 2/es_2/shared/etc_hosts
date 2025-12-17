@@ -21,8 +21,8 @@
 10.42.112.2     sardegna
 
 #TOSCANA 10.42.120.0/21
-153.21.120.1     r4_toscana
-153.21.120.2     toscana
+10.21.120.1     r4_toscana
+10.21.120.2     toscana
 
 #PUGLIA 10.42.128.0/22
 10.42.128.1     r9_puglia
@@ -38,12 +38,6 @@
 
 
 # COLLEGAMENTI P2P
-
-# R1 - INTERNET
-# IP assegnato dinamicamente da kathara
-# Non appartiene al blocco di indirizzi interno
-# Non lo so regà, fratello Gemini dice questo
-10.42.134.0
 
 # R1R2 10.42.134.128/30
 10.42.134.129   r1
@@ -92,11 +86,3 @@
 # R10R11 10.42.134.172/30
 10.42.134.173   r10
 10.42.134.174   r11
-
-# R5R6 153.21.80.152/30
-153.21.80.153   r5
-153.21.80.154   r6
-
-# R6R7 153.21.80.156/30
-153.21.80.157   r6
-153.21.80.158   r7
