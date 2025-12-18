@@ -1,0 +1,6 @@
+ip addr add 10.42.134.178/30 dev eth0 #P2P con il "server"
+ip addr add 10.42.129.24/22 dev eth1
+
+ip route add default via 10.42.128.1 dev eth1
+
+cat /shared/etc_hosts >> /etc/hosts

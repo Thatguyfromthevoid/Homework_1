@@ -1,0 +1,10 @@
+ip addr add 10.42.134.133/30 dev eth0
+ip addr add 10.42.134.129/30 dev eth1
+ip addr add 10.42.134.177/30 dev eth3 #P2P con il "server"
+
+ip route add 10.42.0.0/16 via 10.42.134.134 dev eth0
+ip route add 10.42.129.24 via 10.42.134.178 dev eth3
+
+iptables -t nat -A POSTROUTING -s 10.42.0.0/16 -o eth2 -j MASQUERADE # per il natting
+
+cat /shared/etc_hosts >> /etc/hosts
